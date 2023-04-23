@@ -1,66 +1,113 @@
-# printf
-A simple printf function built by Caleb Nyong  and Johnel Okon for Alx software Engineering School.
+# 0x11. C - printf
 
-#Welcome
+This is a custom implementation of the `printf` function in C, completed as part of the ALX School curriculum. The `printf` function is used to format and print output to the standard output stream (stdout) in C. This custom implementation adheres to the requirements provided by ALX School, including using allowed editors, compiling with specific options, following the Betty style, and not using global variables.
 
-Rebuild of the standard printf function in C. Our project required a function capable of printing with the %d, %c, %s, and %% specifiers to standard output. printf returns the number of characters printed (excluding the null byte at the end of strings). We were not asked to handle flag characters, field width, precision, or length.
+## Requirements
 
-#Format Specifiers
+- This custom `printf` function was developed and tested on Ubuntu 20.04 LTS using the GCC compiler with the options `-Wall -Werror -Wextra -pedantic -std=gnu89`.
+- The code follows the Betty style, which is a set of guidelines for writing clean and readable C code.
+- The custom `printf` function does not use global variables, and each file contains no more than 5 functions.
+- The prototypes of all functions used in this custom `printf` function are included in a header file called `main.h`, which is properly include guarded.
 
-Our team chose to add %x ,%X, %b, %o, %u, %r, %R, and %p formatting. We relied on the library we have been building at Alx as well as new concepts gathered during this project.
+## Features
 
-#Supported Format Types
+This custom `printf` function supports the following format specifiers, similar to the standard `printf` function in C:
 
-TYPE - OUTPUT
+- `%c`: for printing characters
+- `%s`: for printing strings
+- `%d` and `%i`: for printing signed integers
+- `%u`: for printing unsigned integers
+- `%o`: for printing octal numbers
+- `%x` and `%X`: for printing hexadecimal numbers
+- `%%`: for printing a literal `%` character
 
-c - Single character
+Additionally, this custom `printf` function supports the following format modifier:
 
-s - String
+- `%r`: for printing a reverse string (a custom extension not found in the standard `printf` function)
 
-r - String in reverse
+This custom `printf` function also supports variable argument lists using the `<stdarg.h>` library, specifically the `va_start`, `va_end`, `va_copy`, and `va_arg` functions.
 
-R - String in rot13
+## Compilation and Usage
 
-d - Integer in decimal
+To compile the custom `printf` function, you can use the following command:
 
-i - integer
+```
+gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c
+```
 
-% - Percent sign
+After compilation, you can include the `main.h` header file in your C program and use the `_printf` function with the supported format specifiers and modifiers as described above.
 
-Xl - Lowercase hex
+Here is an example of how you can use the custom `printf` function:
 
-X - Uppercase hex
+```c
+#include <limits.h>
+#include <stdio.h>
+#include "main.h"
 
-b - binary
+int main(void)
+{
+    int len;
+    int len2;
+    unsigned int ui;
+    void *addr;
 
-o - octal
+    len = _printf("Let's try to printf a simple sentence.\n");
+    len2 = printf("Let's try to printf a simple sentence.\n");
+    ui = (unsigned int)INT_MAX + 1024;
+    addr = (void *)0x7ffe637541f0;
+    _printf("Length:[%d, %i]\n", len, len);
+    printf("Length:[%d, %i]\n", len2, len2);
+    _printf("Negative:[%d]\n", -762534);
+    printf("Negative:[%d]\n", -762534);
+    _printf("Unsigned:[%u]\n", ui);
+    printf("Unsigned:[%u]\n", ui);
+    _printf("Unsigned octal:[%o]\n", ui);
+    printf("Unsigned octal:[%o]\n", ui);
+    _printf("Unsigned hexadecimal:[%x, %X]\n", ui, ui);
+    printf("Unsigned hexadecimal:[%x, %X]\n", ui, ui);
+    _printf("Character:[%c]\n", 'H');
+    printf("Character:[%c]\n", 'H');
+    _printf("String:[%s]\n", "I am a string !");
+    printf("String:[%s]\n", "I am a string !");
+    _printf("Address:[%p]\n", addr);
+    printf("Address:[%p]\n", addr);
+    len = _printf("Percent:[%%]\n");
+    len2 = printf("Percent:[%%]\n");
+    _printf("Len:[%d]\n", len);
+    printf("Len:[%d]\n", len2);
+    _printf("Unknown:[%r]\n");
+    printf("Unknown:[%r]\n");
+    return (0);
+}
+```
 
-u - unsigned
+This would output the following:
 
-p - pointer
+```
+Let's try to printf a simple sentence.
+Let's try to printf a simple sentence.
+Length:[39, 39]
+Length:[39, 39]
+Negative:[-762534]
+Negative:[-762534]
+Unsigned:[2147484671]
+Unsigned:[2147484671]
+Unsigned octal:[20000001777]
+Unsigned octal:[20000001777]
+Unsigned hexadecimal:[800003ff, 800003FF]
+Unsigned hexadecimal:[800003ff, 800003FF]
+Character:[H]
+Character:[H]
+String:[I am a string !]
+String:[I am a string !]
+Address:[0x7ffe637541f0]
+Address:[0x7ffe637541f0]
+Percent:[%]
+Percent:[%]
+Len:[12]
+Len:[12]
+Unknown:[%r]
+Unknown:[%r]
+```
 
-F - expletive
-
-#Examples
-
-Character: printf("%c", A); Output:: A
-
-String: printf("%s", This is a string.); Output: This is a string.
-
-Integer: printf("%i", 5); Output: 5
-
-Expletive: printf("%F", anything); Output: FUCK
-
-#Requirements
-
-Allowed editors: vi, vim, emacs All your files will be compiled on Ubuntu 20.04 LTS using gcc, using the options -Wall -Werror -Wextra -pedantic -std=gnu89 All your files should end with a new line A README.md file, at the root of the folder of the project is mandatory Your code should use the Betty style. It will be checked using betty-style.pl and betty-doc.pl You are not allowed to use global variables No more than 5 functions per file In the following examples, the main.c files are shown as examples. You can use them to test your functions, but you don’t have to push them to your repo (if you do we won’t take them into account). We will use our own main.c files at compilation. Our main.c files might be different from the one shown in the examples The prototypes of all your functions should be included in your header file called main.h Don’t forget to push your header file All your header files should be include guarded Note that we will not provide the _putchar function for this project GitHub There should be one project repository per group. If you clone/fork/whatever a project repository with the same name before the second deadline, you risk a 0% score.
-
-#Authorized functions and macros
-
-write (man 2 write) malloc (man 3 malloc) free (man 3 free) va_start (man 3 va_start) va_end (man 3 va_end) va_copy (man 3 va_copy) va_arg (man 3 va_arg)
-
-#Authors
-
-Caleb Nyong
-
-Johnel Okon
+Note: The `%b` format specifier is a custom extension not found in the standard `printf` function, and it prints the binary representation of an unsigned integer.
